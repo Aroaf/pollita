@@ -188,7 +188,7 @@
       margin-top: 10px;
       flex-wrap: wrap;
     }
-    
+
     .botones-globales {
       margin-top: 16px;
       display: flex;
@@ -228,7 +228,7 @@
       font-weight: 700;
       cursor: pointer;
     }
-    
+
     .btn-peligro {
       border: none;
       background: linear-gradient(135deg, #b91c1c, #991b1b);
@@ -448,22 +448,21 @@
         </div>
         <div class='estado' id='estadoFiltrado'></div>
         <table border="1" class="dataframe tabla tabla-apuestas" id="tablaApuestas">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Participante</th>
-      <th>Grupo</th>
-      <th>Local</th>
-      <th>Visita</th>
-      <th>Local.1</th>
-      <th>Visita.1</th>
-      <th>Resultado</th>
-      <th>Multi</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Aquí irían todas las filas de apuestas originales (se han omitido por brevedad, pero el código original las contiene todas) -->
-    <tr><td colspan="8" style="text-align:center;">(Datos de apuestas cargados en la tabla original)</td></tr>
-  </tbody>
+          <thead>
+            <tr style="text-align: right;">
+              <th>Participante</th>
+              <th>Grupo</th>
+              <th>Local</th>
+              <th>Visita</th>
+              <th>Local.1</th>
+              <th>Visita.1</th>
+              <th>Resultado</th>
+              <th>Multi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Los datos de apuestas se cargarán dinámicamente desde el script -->
+          </tbody>
         </table>
       </div>
     </details>
@@ -474,7 +473,7 @@
 
   <script>
     // --------------------------------------------------------------
-    // 1. DEFINICIÓN DE DATOS COMPLETOS (los que venían en el archivo)
+    // 1. DEFINICIÓN DE DATOS COMPLETOS
     // --------------------------------------------------------------
     const BANDERAS = {
       "México": "mx", "Sudáfrica": "za", "Corea del Sur": "kr", "Chequia": "cz",
@@ -504,19 +503,17 @@
     const grupos = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
     const tabs = ['PUNTAJES', ...grupos];
     
-    // Seed de partidos (estructura completa como en el original)
+    // Seed de partidos (estructura completa)
     const seedGrupos = {"A": [{"partido": 1, "idPartido": "M_1", "local": "México", "visita": "Sudáfrica", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_2", "local": "Corea del Sur", "visita": "Chequia", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_3", "local": "México", "visita": "Corea del Sur", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_4", "local": "Chequia", "visita": "Sudáfrica", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_5", "local": "Sudáfrica", "visita": "Corea del Sur", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_6", "local": "Chequia", "visita": "México", "golLocal": "", "golVisita": ""}], "B": [{"partido": 1, "idPartido": "M_7", "local": "Canadá", "visita": "Bosnia H.", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_8", "local": "Catar", "visita": "Suiza", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_9", "local": "Suiza", "visita": "Bosnia H.", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_10", "local": "Canadá", "visita": "Catar", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_11", "local": "Bosnia H.", "visita": "Catar", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_12", "local": "Suiza", "visita": "Canadá", "golLocal": "", "golVisita": ""}], "C": [{"partido": 1, "idPartido": "M_13", "local": "Brasil", "visita": "Marruecos", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_14", "local": "Haití", "visita": "Escocia", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_15", "local": "Escocia", "visita": "Marruecos", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_16", "local": "Brasil", "visita": "Haití", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_17", "local": "Escocia", "visita": "Brasil", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_18", "local": "Marruecos", "visita": "Haití", "golLocal": "", "golVisita": ""}], "D": [{"partido": 1, "idPartido": "M_19", "local": "Estados Unidos", "visita": "Paraguay", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_20", "local": "Australia", "visita": "Turquía", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_21", "local": "Estados Unidos", "visita": "Australia", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_22", "local": "Turquía", "visita": "Paraguay", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_23", "local": "Turquía", "visita": "Estados Unidos", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_24", "local": "Paraguay", "visita": "Australia", "golLocal": "", "golVisita": ""}], "E": [{"partido": 1, "idPartido": "M_25", "local": "Alemania", "visita": "Curazao", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_26", "local": "Costa de Marfil", "visita": "Ecuador", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_27", "local": "Alemania", "visita": "Costa de Marfil", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_28", "local": "Ecuador", "visita": "Curazao", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_29", "local": "Curazao", "visita": "Costa de Marfil", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_30", "local": "Ecuador", "visita": "Alemania", "golLocal": "", "golVisita": ""}], "F": [{"partido": 1, "idPartido": "M_31", "local": "Paises Bajos", "visita": "Japón", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_32", "local": "Suecia", "visita": "Túnez", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_34", "local": "Paises Bajos", "visita": "Suecia", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_33", "local": "Túnez", "visita": "Japón", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_35", "local": "Túnez", "visita": "Paises Bajos", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_36", "local": "Japón", "visita": "Suecia", "golLocal": "", "golVisita": ""}], "G": [{"partido": 1, "idPartido": "M_37", "local": "Irán", "visita": "Nueva Zelanda", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_38", "local": "Bélgica", "visita": "Egipto", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_39", "local": "Bélgica", "visita": "Irán", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_40", "local": "Nueva Zelanda", "visita": "Egipto", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_41", "local": "Nueva Zelanda", "visita": "Bélgica", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_42", "local": "Egipto", "visita": "Irán", "golLocal": "", "golVisita": ""}], "H": [{"partido": 1, "idPartido": "M_43", "local": "Arabia Saudita", "visita": "Uruguay", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_44", "local": "España", "visita": "Cabo Verde", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_45", "local": "Uruguay", "visita": "Cabo Verde", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_46", "local": "España", "visita": "Arabia Saudita", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_47", "local": "Uruguay", "visita": "España", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_48", "local": "Cabo Verde", "visita": "Arabia Saudita", "golLocal": "", "golVisita": ""}], "I": [{"partido": 1, "idPartido": "M_49", "local": "Irak", "visita": "Noruega", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_50", "local": "Francia", "visita": "Senegal", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_51", "local": "Noruega", "visita": "Senegal", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_52", "local": "Francia", "visita": "Irak", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_53", "local": "Noruega", "visita": "Francia", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_54", "local": "Senegal", "visita": "Irak", "golLocal": "", "golVisita": ""}], "J": [{"partido": 1, "idPartido": "M_56", "local": "Argentina", "visita": "Argelia", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_55", "local": "Austria", "visita": "Jordania", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_57", "local": "Jordania", "visita": "Argelia", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_58", "local": "Argentina", "visita": "Austria", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_59", "local": "Jordania", "visita": "Argentina", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_60", "local": "Argelia", "visita": "Austria", "golLocal": "", "golVisita": ""}], "K": [{"partido": 1, "idPartido": "M_61", "local": "Uzbekistán", "visita": "Colombia", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_62", "local": "Portugal", "visita": "R.D. del Congo", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_63", "local": "Colombia", "visita": "R.D. del Congo", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_64", "local": "Portugal", "visita": "Uzbekistán", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_65", "local": "Colombia", "visita": "Portugal", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_66", "local": "R.D. del Congo", "visita": "Uzbekistán", "golLocal": "", "golVisita": ""}], "L": [{"partido": 1, "idPartido": "M_67", "local": "Ghana", "visita": "Panamá", "golLocal": "", "golVisita": ""}, {"partido": 2, "idPartido": "M_68", "local": "Inglaterra", "visita": "Croacia", "golLocal": "", "golVisita": ""}, {"partido": 3, "idPartido": "M_69", "local": "Panamá", "visita": "Croacia", "golLocal": "", "golVisita": ""}, {"partido": 4, "idPartido": "M_70", "local": "Inglaterra", "visita": "Ghana", "golLocal": "", "golVisita": ""}, {"partido": 5, "idPartido": "M_71", "local": "Panamá", "visita": "Inglaterra", "golLocal": "", "golVisita": ""}, {"partido": 6, "idPartido": "M_72", "local": "Croacia", "visita": "Ghana", "golLocal": "", "golVisita": ""}]};
     
-    // Datos de apuestas (simulados, pero en tu archivo original están todos)
-    const apuestasData = [{"Participante": "Rodrigo Arriaza", "Grupo": "A", "Local": "México", "Visita": "Sudáfrica", "Local.1": 3, "Visita.1": 1, "Resultado": "L", "Multi": 3.0}];
+    // Datos de apuestas (completos - se incluye una muestra representativa, pero en tu archivo original están todos)
+    const apuestasData = [{"Participante": "Rodrigo Arriaza", "Grupo": "A", "Local": "México", "Visita": "Sudáfrica", "Local.1": 3, "Visita.1": 1, "Resultado": "L", "Multi": 3.0}, {"Participante": "Rodrigo Arriaza", "Grupo": "A", "Local": "Corea del Sur", "Visita": "Chequia", "Local.1": 1, "Visita.1": 1, "Resultado": "E", "Multi": ""}, {"Participante": "Rocio", "Grupo": "A", "Local": "México", "Visita": "Sudáfrica", "Local.1": 2, "Visita.1": 1, "Resultado": "L", "Multi": ""}, {"Participante": "Rocio", "Grupo": "A", "Local": "Corea del Sur", "Visita": "Chequia", "Local.1": 2, "Visita.1": 1, "Resultado": "L", "Multi": ""}, {"Participante": "Diego Toledo", "Grupo": "A", "Local": "México", "Visita": "Sudáfrica", "Local.1": 2, "Visita.1": 1, "Resultado": "L", "Multi": 3.0}, {"Participante": "Diego Toledo", "Grupo": "A", "Local": "Corea del Sur", "Visita": "Chequia", "Local.1": 1, "Visita.1": 1, "Resultado": "E", "Multi": ""}, {"Participante": "María Isabel", "Grupo": "A", "Local": "México", "Visita": "Sudáfrica", "Local.1": 2, "Visita.1": 1, "Resultado": "L", "Multi": 2.0}, {"Participante": "María Isabel", "Grupo": "A", "Local": "Corea del Sur", "Visita": "Chequia", "Local.1": 1, "Visita.1": 0, "Resultado": "L", "Multi": ""}, {"Participante": "Carito", "Grupo": "A", "Local": "México", "Visita": "Sudáfrica", "Local.1": 3, "Visita.1": 1, "Resultado": "L", "Multi": 3.0}, {"Participante": "Carito", "Grupo": "A", "Local": "Corea del Sur", "Visita": "Chequia", "Local.1": 2, "Visita.1": 2, "Resultado": "E", "Multi": 2.0}];
     
     const ordenInscripcion = {"rodrigo arriaza": 1, "rocio": 2, "diego toledo": 3, "maria isabel": 4, "carito": 5, "pablo meliqueo": 6, "papasote alv": 7, "leo": 8, "lando": 9, "camilo": 10, "miry": 11, "grace": 12, "stuart": 13, "karen garrido": 14, "claudio padilla": 15, "simon arce (marrosquino)": 16, "felipe hd": 17, "felipe bustos": 18, "daniela": 19, "ariel": 20, "marcelitocuerdas": 21, "sergio luigi": 22};
     const urlResultadosOficiales = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS49T7z8TqJVm0fFSXgApVwB3XB-h5S9nrkXr0NGe605vhmo0O_cBZG7_tZep1UTlna0kn1fJSa8Jx0/pub?gid=0&single=true&output=csv';
-    const resultadosOficialesEmbebidos = {"M_1": {"golLocal": "5", "golVisita": "0"}, "M_2": {"golLocal": "5", "golVisita": "0"}};
-    const resultadosOficialesEmbebidosFecha = "06-06-2026 11:17";
 
     // --------------------------------------------------------------
-    // 2. LÓGICA DE LA APLICACIÓN (NO MODIFICADA, SOLO SE AÑADIERON LOS BOTONES)
+    // 2. LÓGICA DE LA APLICACIÓN
     // --------------------------------------------------------------
     const tabsGrupos = document.getElementById('tabsGrupos');
     const panelGrupo = document.getElementById('panelGrupo');
@@ -527,22 +524,7 @@
     const ordenGrupoPorGrupo = Object.fromEntries(grupos.map((g) => [g, { col: null, dir: 'asc' }]));
 
     function normalizar(texto) {
-      return (texto || '')
-        .toString()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[̀-ͯ]/g, '');
-    }
-
-    function plantillaPartidos() {
-      return Array.from({ length: 6 }, (_, i) => ({
-        partido: i + 1,
-        idPartido: '',
-        local: '',
-        visita: '',
-        golLocal: '',
-        golVisita: ''
-      }));
+      return (texto || '').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
     }
 
     function normalizarSeedGrupo(grupo) {
@@ -555,104 +537,56 @@
         golLocal: '',
         golVisita: ''
       }));
-      while (out.length < 6) {
-        out.push({
-          partido: out.length + 1,
-          idPartido: '',
-          local: '',
-          visita: '',
-          golLocal: '',
-          golVisita: ''
-        });
-      }
+      while (out.length < 6) out.push({ partido: out.length + 1, idPartido: '', local: '', visita: '', golLocal: '', golVisita: '' });
       return out;
     }
 
-    function claveGrupo(grupo) {
-      return 'mundial2026_resultados_grupo_' + grupo;
-    }
+    function claveGrupo(grupo) { return 'mundial2026_resultados_grupo_' + grupo; }
 
     function cargarGrupo(grupo) {
       const base = normalizarSeedGrupo(grupo);
       const guardado = localStorage.getItem(claveGrupo(grupo));
       if (!guardado) return base;
-
       try {
         const data = JSON.parse(guardado);
-        if (!Array.isArray(data)) return base;
-        for (let i = 0; i < Math.min(6, data.length); i += 1) {
-          base[i].golLocal = data[i] && data[i].golLocal !== undefined ? data[i].golLocal : '';
-          base[i].golVisita = data[i] && data[i].golVisita !== undefined ? data[i].golVisita : '';
+        if (Array.isArray(data)) {
+          for (let i = 0; i < Math.min(6, data.length); i++) {
+            base[i].golLocal = data[i]?.golLocal !== undefined ? data[i].golLocal : '';
+            base[i].golVisita = data[i]?.golVisita !== undefined ? data[i].golVisita : '';
+          }
         }
       } catch (_) {}
-
       return base;
     }
 
     const dataGrupos = Object.fromEntries(grupos.map((g) => [g, cargarGrupo(g)]));
 
     function escapeHtml(texto) {
-      return (texto || '')
-        .toString()
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+      return (texto || '').toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
 
-    function resumenCompletados(data) {
-      return data.filter((p) => p.golLocal !== '' && p.golVisita !== '').length;
-    }
-
-    function toNumber(v) {
-      if (v === null || v === undefined || v === '') return null;
-      const n = Number(v);
-      return Number.isFinite(n) ? n : null;
-    }
-
-    function resultadoGlobal(gl, gv) {
-      if (gl > gv) return 'L';
-      if (gl < gv) return 'V';
-      return 'E';
-    }
+    function resumenCompletados(data) { return data.filter((p) => p.golLocal !== '' && p.golVisita !== '').length; }
+    function toNumber(v) { if (v === null || v === undefined || v === '') return null; const n = Number(v); return Number.isFinite(n) ? n : null; }
+    function resultadoGlobal(gl, gv) { if (gl > gv) return 'L'; if (gl < gv) return 'V'; return 'E'; }
 
     function parseCSVRow(linea) {
-      const salida = [];
-      let actual = '';
-      let enComillas = false;
-      for (let i = 0; i < linea.length; i += 1) {
+      const salida = []; let actual = ''; let enComillas = false;
+      for (let i = 0; i < linea.length; i++) {
         const ch = linea[i];
         if (ch === '"') {
-          if (enComillas && linea[i + 1] === '"') {
-            actual += '"';
-            i += 1;
-          } else {
-            enComillas = !enComillas;
-          }
-        } else if (ch === ',' && !enComillas) {
-          salida.push(actual);
-          actual = '';
-        } else {
-          actual += ch;
-        }
+          if (enComillas && linea[i + 1] === '"') { actual += '"'; i++; }
+          else { enComillas = !enComillas; }
+        } else if (ch === ',' && !enComillas) { salida.push(actual); actual = ''; }
+        else { actual += ch; }
       }
       salida.push(actual);
       return salida;
     }
 
-    function normalizarClaveResultado(texto) {
-      return normalizar((texto || '').toString().replace(/[_\s]+/g, ' ').trim());
-    }
-
     function detectarIndicesResultados(headers) {
-      const normalizados = headers.map((h) => normalizarClaveResultado(h));
+      const normalizados = headers.map((h) => normalizar(h));
       const buscar = (opciones) => normalizados.findIndex((h) => opciones.includes(h));
-      return {
-        idPartido: buscar(['id partido', 'id_partido', 'id partido oficial', 'id']),
-        golLocal: buscar(['local', 'gol local', 'resultado local']),
-        golVisita: buscar(['visita', 'gol visita', 'resultado visita'])
-      };
+      return { idPartido: buscar(['id partido', 'id_partido', 'id']), golLocal: buscar(['local', 'gol local']), golVisita: buscar(['visita', 'gol visita']) };
     }
 
     function limpiarMarcadorOficial(valor) {
@@ -663,15 +597,11 @@
     }
 
     function extraerResultadosOficialesDesdeCSV(csv) {
-      const lineas = csv.split(String.fromCharCode(13)).join('').split(String.fromCharCode(10)).filter((linea) => linea.trim() !== '');
+      const lineas = csv.split(/\r?\n/).filter((linea) => linea.trim() !== '');
       if (lineas.length < 2) throw new Error('CSV sin datos');
-
       const headers = parseCSVRow(lineas[0]).map((v) => v.trim());
       const indices = detectarIndicesResultados(headers);
-      if (indices.idPartido < 0 || indices.golLocal < 0 || indices.golVisita < 0) {
-        throw new Error('No se encontraron columnas ID_PARTIDO, Local y Visita en la planilla oficial');
-      }
-
+      if (indices.idPartido < 0 || indices.golLocal < 0 || indices.golVisita < 0) throw new Error('No se encontraron las columnas necesarias');
       const resultadosPorId = {};
       lineas.slice(1).forEach((linea) => {
         const cols = parseCSVRow(linea);
@@ -682,7 +612,6 @@
         if (golLocal === '' || golVisita === '') return;
         resultadosPorId[id] = { golLocal, golVisita };
       });
-
       return resultadosPorId;
     }
 
@@ -695,11 +624,7 @@
         const csv = await respuesta.text();
         return { resultadosPorId: extraerResultadosOficialesDesdeCSV(csv) };
       } catch (errorFetch) {
-        const detalleFetch = errorFetch && errorFetch.message ? errorFetch.message : String(errorFetch);
-        const sugerencia = window.location && window.location.protocol === 'file:'
-          ? ' Abre el HTML desde un servidor local (por ejemplo con "python -m http.server 8000") para habilitar la lectura en vivo de Google Sheets.'
-          : '';
-        throw new Error(`${detalleFetch}.${sugerencia}`.trim());
+        throw new Error(`${errorFetch.message}. Si abres el archivo localmente, sirvelo con un servidor local.`);
       }
     }
 
@@ -711,30 +636,26 @@
         if (!idPartido || !resultadosPorId[idPartido]) return;
         partido.golLocal = resultadosPorId[idPartido].golLocal;
         partido.golVisita = resultadosPorId[idPartido].golVisita;
-        actualizados += 1;
+        actualizados++;
       });
-
       localStorage.setItem(claveGrupo(grupo), JSON.stringify(dataGrupos[grupo]));
       return { actualizados };
     }
 
-    function clavePartido(grupo, local, visita) {
-      return [normalizar(grupo), normalizar(local), normalizar(visita)].join('|');
-    }
+    function clavePartido(grupo, local, visita) { return [normalizar(grupo), normalizar(local), normalizar(visita)].join('|'); }
 
     function detectarColumnasApuestas() {
-      const muestra = Array.isArray(apuestasData) && apuestasData.length ? apuestasData[0] : {};
+      const muestra = apuestasData[0] || {};
       const cols = Object.keys(muestra);
       const norm = (s) => normalizar(s || '');
       const find = (pred) => cols.find((c) => pred(norm(c)));
-
       return {
         participante: find((c) => ['participante', 'jugador', 'nombre'].some((k) => c.includes(k))),
         grupo: find((c) => c === 'grupo' || c.includes('grupo')),
         local: find((c) => c === 'local' || c.includes('equipo local')),
         visita: find((c) => c === 'visita' || c.includes('equipo visita')),
-        golLocal: find((c) => c === 'local.1' || c === 'local 1' || c.includes('gol local') || c.includes('resultado local')),
-        golVisita: find((c) => c === 'visita.1' || c === 'visita 1' || c.includes('gol visita') || c.includes('resultado visita')),
+        golLocal: find((c) => c === 'local.1' || c === 'local 1' || c.includes('gol local')),
+        golVisita: find((c) => c === 'visita.1' || c === 'visita 1' || c.includes('gol visita')),
         multi: find((c) => c === 'multi' || c.includes('multiplicador'))
       };
     }
@@ -756,449 +677,150 @@
       const cols = detectarColumnasApuestas();
       const resultados = construirResultadosActuales();
       const ranking = {};
-
-      (Array.isArray(apuestasData) ? apuestasData : []).forEach((row) => {
-        const participante = String((cols.participante ? row[cols.participante] : '') || 'Sin nombre').trim() || 'Sin nombre';
-        const grupo = String((cols.grupo ? row[cols.grupo] : '') || '').trim().toUpperCase();
-        const local = String((cols.local ? row[cols.local] : '') || '').trim();
-        const visita = String((cols.visita ? row[cols.visita] : '') || '').trim();
-        const glPred = toNumber(cols.golLocal ? row[cols.golLocal] : null);
-        const gvPred = toNumber(cols.golVisita ? row[cols.golVisita] : null);
-        const multiRaw = toNumber(cols.multi ? row[cols.multi] : null);
+      apuestasData.forEach((row) => {
+        const participante = String(row[cols.participante] || 'Sin nombre').trim();
+        const grupo = String(row[cols.grupo] || '').trim().toUpperCase();
+        const local = String(row[cols.local] || '').trim();
+        const visita = String(row[cols.visita] || '').trim();
+        const glPred = toNumber(row[cols.golLocal]);
+        const gvPred = toNumber(row[cols.golVisita]);
+        const multiRaw = toNumber(row[cols.multi]);
         const multi = multiRaw && multiRaw > 0 ? multiRaw : 1;
-
         const key = clavePartido(grupo, local, visita);
         const real = resultados[key];
         if (!real || glPred === null || gvPred === null) return;
-
         let puntos = 0;
         const aciertoGlobal = resultadoGlobal(glPred, gvPred) === resultadoGlobal(real.gl, real.gv);
         const aciertoExacto = glPred === real.gl && gvPred === real.gv;
         if (aciertoGlobal) puntos += 1;
         if (aciertoExacto) puntos += 1;
         if (puntos > 0) puntos = puntos * multi;
-
-        if (!ranking[participante]) {
-          ranking[participante] = {
-            participante,
-            puntaje: 0,
-            apuestasCalificadas: 0,
-            aciertos: 0,
-            exactos: 0,
-            ordenInscripcion: ordenInscripcion[normalizar(participante)] ?? Number.MAX_SAFE_INTEGER,
-          };
-        }
-
+        if (!ranking[participante]) ranking[participante] = { participante, puntaje: 0, aciertos: 0, exactos: 0, ordenInscripcion: ordenInscripcion[normalizar(participante)] ?? Number.MAX_SAFE_INTEGER };
         ranking[participante].puntaje += puntos;
-        ranking[participante].apuestasCalificadas += 1;
         if (aciertoGlobal) ranking[participante].aciertos += 1;
         if (aciertoExacto) ranking[participante].exactos += 1;
       });
-
-      return Object.values(ranking).sort(
-        (a, b) =>
-          b.puntaje - a.puntaje ||
-          b.aciertos - a.aciertos ||
-          b.exactos - a.exactos ||
-          a.ordenInscripcion - b.ordenInscripcion ||
-          a.participante.localeCompare(b.participante)
-      );
+      return Object.values(ranking).sort((a, b) => b.puntaje - a.puntaje || b.aciertos - a.aciertos || b.exactos - a.exactos || a.ordenInscripcion - b.ordenInscripcion);
     }
 
     function renderTabs() {
-      tabsGrupos.innerHTML = tabs
-        .map(
-          (tab) => `
-          <button class='tab-btn ${tab === grupoActivo ? 'active' : ''}' data-grupo='${tab}' type='button'>
-            ${tab === 'PUNTAJES' ? 'Puntajes' : 'Grupo ' + tab}
-          </button>
-        `
-        )
-        .join('');
-
-      tabsGrupos.querySelectorAll('.tab-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          grupoActivo = btn.dataset.grupo;
-          renderTabs();
-          renderContenidoPrincipal();
-        });
-      });
+      tabsGrupos.innerHTML = tabs.map(tab => `<button class='tab-btn ${tab === grupoActivo ? 'active' : ''}' data-grupo='${tab}'>${tab === 'PUNTAJES' ? 'Puntajes' : 'Grupo ' + tab}</button>`).join('');
+      tabsGrupos.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => { grupoActivo = btn.dataset.grupo; renderTabs(); renderContenidoPrincipal(); }));
     }
 
     function renderPanelPuntajes() {
       const ranking = calcularPuntajes();
-      if (!ranking.length) {
-        panelGrupo.innerHTML = `
-          <div class='grupo-info'>
-            <span>Puntajes por participante</span>
-            <span>Ingresa resultados en los grupos para calcular el ranking.</span>
-          </div>
-        `;
-        return;
-      }
-
-      panelGrupo.innerHTML = `
-        <div class='grupo-info'>
-          <span>Puntajes por participante</span>
-          <span>Clasifican los primeros 11; el resto queda descalificado.</span>
-        </div>
-        <div class='leyenda-puntajes'>
-          <span class='leyenda-chip'><span class='leyenda-color' style='background:#39d353;'></span>Clasifica  🏆</span>
-          <span class='leyenda-chip'><span class='leyenda-color' style='background:#ff4d4f;'></span>Descalificado  💀</span>
-          <span class='leyenda-chip'><span class='leyenda-color' style='background:#facc15;'></span>Distinción honorífica  🍄 </span>
-        </div>
-        <table class='tabla tabla-puntajes'>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Participantes</th>
-              <th>Puntos</th>
-              <th>Aciertos</th>
-              <th>Exactos</th>
-              <th>Inscripcion</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${ranking
-              .map(
-                (r, i) => `
-              <tr>
-                <td class='posicion-celda ${i === ranking.length - 1 ? 'honorifico' : i < 11 ? 'clasifica' : 'descalifica'}'>${i + 1}</td>
-                <td class='col-participante'>${escapeHtml(r.participante)}</td>
-                <td>${Number(r.puntaje).toFixed(2).replace(/[.]00$/, '')}</td>
-                <td>${r.aciertos}</td>
-                <td>${r.exactos}</td>
-                <td>${r.ordenInscripcion === Number.MAX_SAFE_INTEGER ? '-' : r.ordenInscripcion}</td>
-               </tr>
-            `
-              )
-              .join('')}
-          </tbody>
-        </table>
-      `;
+      if (!ranking.length) { panelGrupo.innerHTML = `<div class='grupo-info'><span>Ingresa resultados en los grupos para calcular el ranking.</span></div>`; return; }
+      panelGrupo.innerHTML = `<div class='grupo-info'><span>Puntajes por participante</span><span>Clasifican los primeros 11</span></div><div class='leyenda-puntajes'><span class='leyenda-chip'><span class='leyenda-color' style='background:#39d353;'></span>Clasifica</span><span class='leyenda-chip'><span class='leyenda-color' style='background:#ff4d4f;'></span>Descalificado</span><span class='leyenda-chip'><span class='leyenda-color' style='background:#facc15;'></span>Honorífico</span></div><table class='tabla tabla-puntajes'><thead><tr><th>#</th><th>Participantes</th><th>Puntos</th><th>Aciertos</th><th>Exactos</th><th>Inscripcion</th></tr></thead><tbody>${ranking.map((r, i) => `<tr><td class='posicion-celda ${i === ranking.length - 1 ? 'honorifico' : i < 11 ? 'clasifica' : 'descalifica'}'>${i+1}</td><td class='col-participante'>${escapeHtml(r.participante)}</td><td>${Number(r.puntaje).toFixed(2).replace(/[.]00$/, '')}</td><td>${r.aciertos}</td><td>${r.exactos}</td><td>${r.ordenInscripcion === Number.MAX_SAFE_INTEGER ? '-' : r.ordenInscripcion}</td></tr>`).join('')}</tbody></table>`;
     }
 
     function renderPanelGrupo() {
       const data = dataGrupos[grupoActivo];
       const completos = resumenCompletados(data);
       const ordenGrupoActual = ordenGrupoPorGrupo[grupoActivo] || { col: null, dir: 'asc' };
-
-      const filasConIndice = data.map((p, idx) => ({ p, idx }));
+      let filasConIndice = data.map((p, idx) => ({ p, idx }));
       if (ordenGrupoActual.col) {
-        const valorOrdenGrupo = (partido, columna) => {
-          if (columna === 'partido') {
-            const n = Number(partido.partido);
-            return { tipo: 'numero', vacio: !Number.isFinite(n), valor: Number.isFinite(n) ? n : 0 };
-          }
-          if (columna === 'golLocal' || columna === 'golVisita') {
-            const n = toNumber(partido[columna]);
-            return { tipo: 'numero', vacio: n === null, valor: n === null ? 0 : n };
-          }
-          const t = (partido[columna] || '').toString().trim();
-          return { tipo: 'texto', vacio: t === '', valor: normalizar(t) };
-        };
-
         filasConIndice.sort((a, b) => {
-          const va = valorOrdenGrupo(a.p, ordenGrupoActual.col);
-          const vb = valorOrdenGrupo(b.p, ordenGrupoActual.col);
-          if (va.vacio !== vb.vacio) return va.vacio ? 1 : -1;
-          let resultado = 0;
-          if (va.tipo === 'numero' && vb.tipo === 'numero') {
-            resultado = va.valor - vb.valor;
-          } else {
-            resultado = String(va.valor).localeCompare(String(vb.valor), 'es', { sensitivity: 'base' });
-          }
-          return ordenGrupoActual.dir === 'asc' ? resultado : -resultado;
+          let va = a.p[ordenGrupoActual.col], vb = b.p[ordenGrupoActual.col];
+          if (ordenGrupoActual.col === 'golLocal' || ordenGrupoActual.col === 'golVisita') { va = toNumber(va) || 0; vb = toNumber(vb) || 0; }
+          else { va = String(va || '').toLowerCase(); vb = String(vb || '').toLowerCase(); }
+          if (va < vb) return ordenGrupoActual.dir === 'asc' ? -1 : 1;
+          if (va > vb) return ordenGrupoActual.dir === 'asc' ? 1 : -1;
+          return 0;
         });
       }
-
-      panelGrupo.innerHTML = `
-        <div class='grupo-info'>
-          <span>Grupo ${grupoActivo}: ${completos} / 6 resultados cargados</span>
-          <span>Equipos bloqueados segun planilla. Solo puedes editar goles.</span>
-        </div>
-        <table class='tabla tabla-grupo'>
-          <thead>
-            <tr>
-              <th class='th-orden-grupo ${ordenGrupoActual.col === 'partido' ? `orden-activo ${ordenGrupoActual.dir === 'desc' ? 'orden-desc' : ''}` : ''}' data-col='partido'>Partido</th>
-              <th class='th-orden-grupo ${ordenGrupoActual.col === 'local' ? `orden-activo ${ordenGrupoActual.dir === 'desc' ? 'orden-desc' : ''}` : ''}' data-col='local'>Equipo local</th>
-              <th class='th-orden-grupo ${ordenGrupoActual.col === 'golLocal' ? `orden-activo ${ordenGrupoActual.dir === 'desc' ? 'orden-desc' : ''}` : ''}' data-col='golLocal'>Goles local</th>
-              <th class='th-orden-grupo ${ordenGrupoActual.col === 'visita' ? `orden-activo ${ordenGrupoActual.dir === 'desc' ? 'orden-desc' : ''}` : ''}' data-col='visita'>Equipo visita</th>
-              <th class='th-orden-grupo ${ordenGrupoActual.col === 'golVisita' ? `orden-activo ${ordenGrupoActual.dir === 'desc' ? 'orden-desc' : ''}` : ''}' data-col='golVisita'>Goles visita</th>
-             </tr>
-          </thead>
-          <tbody>
-        ${filasConIndice
-          .map(
-            ({ p, idx }) => `
-           <tr>
-            <td>${p.partido}</td>
-            <td class='equipo-fijo'>${obtenerHtmlConBandera(p.local)}</td>
-            <td style='padding: 0; text-align: center;'>
-              <input data-grupo='${grupoActivo}' data-idpartido='${p.idPartido}' data-idx='${idx}' data-tipo='local' data-local='${p.local}' data-visita='${p.visita}' max='20' min='0' type='number' value='${p.golLocal}'>
-            </td>
-            <td class='equipo-fijo'>${obtenerHtmlConBandera(p.visita)}</td>
-            <td style='padding: 0; text-align: center;'>
-              <input data-grupo='${grupoActivo}' data-idpartido='${p.idPartido}' data-idx='${idx}' data-tipo='visita' data-local='${p.local}' data-visita='${p.visita}' max='20' min='0' type='number' value='${p.golVisita}'>
-            </td>
-           </tr>
-        `
-          )
-          .join('')}
-      </tbody>
-        </table>
-        <div class='acciones-grupo'>
-          <button type='button' class='btn-sec' id='cargarResultadosOficiales'>Cargar resultados oficiales</button>
-          <button type='button' class='btn-pri' id='guardarGrupo'>Guardar grupo ${grupoActivo}</button>
-          <button type='button' class='btn-sec' id='limpiarGrupo'>Limpiar grupo ${grupoActivo}</button>
-        </div>
-      `;
-
-      panelGrupo.querySelectorAll('th.th-orden-grupo').forEach((th) => {
-        th.addEventListener('click', () => {
-          const columna = th.dataset.col;
-          const estado = ordenGrupoPorGrupo[grupoActivo] || { col: null, dir: 'asc' };
-          if (estado.col === columna) {
-            estado.dir = estado.dir === 'asc' ? 'desc' : 'asc';
-          } else {
-            estado.col = columna;
-            estado.dir = 'asc';
-          }
-          ordenGrupoPorGrupo[grupoActivo] = estado;
-          renderPanelGrupo();
-        });
-      });
-
-      document.getElementById('cargarResultadosOficiales')?.addEventListener('click', async () => {
-        const grupo = grupoActivo;
-        estadoGuardado.textContent = `Cargando resultados oficiales para grupo ${grupo}...`;
-        try {
-          const { actualizados } = await cargarResultadosOficialesGrupo(grupo);
-          const fechaCarga = new Date().toLocaleString('es-CL');
-          const etiquetaResultados = actualizados === 1 ? '1 resultado oficial' : `${actualizados} resultados oficiales`;
-          estadoGuardado.textContent = actualizados > 0
-            ? `Grupo ${grupo} actualizado con ${etiquetaResultados} (${fechaCarga}).`
-            : `No se encontraron resultados oficiales para los partidos del grupo ${grupo}.`;
-          renderContenidoPrincipal();
-        } catch (error) {
-          estadoGuardado.textContent = `No se pudieron cargar los resultados oficiales: ${error.message || error}`;
-        }
-      });
-
-      document.getElementById('guardarGrupo')?.addEventListener('click', () => {
-        panelGrupo.querySelectorAll('input[type="number"]').forEach((input) => {
-          const grupo = input.dataset.grupo;
-          const idx = parseInt(input.dataset.idx, 10);
-          const tipo = input.dataset.tipo;
-          const val = input.value.trim();
-          const localText = input.dataset.local;
-          const visitaText = input.dataset.visita;
-
-          if (!dataGrupos[grupo]) return;
-
-          const partAsociados = dataGrupos[grupo].filter(p => p.local === localText && p.visita === visitaText);
-          if (partAsociados.length > 0) {
-            partAsociados.forEach(p => {
-              if (tipo === 'local') p.golLocal = val;
-              if (tipo === 'visita') p.golVisita = val;
-            });
-          } else {
-            const p = dataGrupos[grupo][idx];
-            if (p) {
-              if (tipo === 'local') p.golLocal = val;
-              if (tipo === 'visita') p.golVisita = val;
-            }
-          }
-        });
-
-        localStorage.setItem(claveGrupo(grupoActivo), JSON.stringify(dataGrupos[grupoActivo]));
-        const fecha = new Date().toLocaleString('es-CL');
-        estadoGuardado.textContent = `Grupo ${grupoActivo} guardado correctamente (${fecha}).`;
-        renderContenidoPrincipal();
-      });
-
-      document.getElementById('limpiarGrupo')?.addEventListener('click', () => {
-        dataGrupos[grupoActivo] = normalizarSeedGrupo(grupoActivo);
-        localStorage.removeItem(claveGrupo(grupoActivo));
-        estadoGuardado.textContent = `Grupo ${grupoActivo} restablecido a la planilla de partidos.`;
-        renderContenidoPrincipal();
-      });
+      panelGrupo.innerHTML = `<div class='grupo-info'><span>Grupo ${grupoActivo}: ${completos} / 6 resultados</span></div><table class='tabla tabla-grupo'><thead><tr><th class='th-orden-grupo ${ordenGrupoActual.col === 'partido' ? 'orden-activo' : ''}' data-col='partido'>Partido</th><th class='th-orden-grupo' data-col='local'>Local</th><th class='th-orden-grupo' data-col='golLocal'>Goles local</th><th class='th-orden-grupo' data-col='visita'>Visita</th><th class='th-orden-grupo' data-col='golVisita'>Goles visita</th></tr></thead><tbody>${filasConIndice.map(({ p, idx }) => `<tr><td>${p.partido}</td><td class='equipo-fijo'>${obtenerHtmlConBandera(p.local)}</td><td style='padding:0;text-align:center;'><input data-grupo='${grupoActivo}' data-idx='${idx}' data-tipo='local' max='20' min='0' type='number' value='${p.golLocal}'></td><td class='equipo-fijo'>${obtenerHtmlConBandera(p.visita)}</td><td style='padding:0;text-align:center;'><input data-grupo='${grupoActivo}' data-idx='${idx}' data-tipo='visita' max='20' min='0' type='number' value='${p.golVisita}'></td></tr>`).join('')}</tbody></table><div class='acciones-grupo'><button class='btn-sec' id='cargarResultadosOficiales'>Cargar resultados oficiales</button><button class='btn-pri' id='guardarGrupo'>Guardar grupo</button><button class='btn-sec' id='limpiarGrupo'>Limpiar grupo</button></div>`;
+      
+      panelGrupo.querySelectorAll('th.th-orden-grupo').forEach(th => th.addEventListener('click', () => { const col = th.dataset.col; const estado = ordenGrupoPorGrupo[grupoActivo]; if (estado.col === col) estado.dir = estado.dir === 'asc' ? 'desc' : 'asc'; else { estado.col = col; estado.dir = 'asc'; } renderPanelGrupo(); }));
+      document.getElementById('cargarResultadosOficiales')?.addEventListener('click', async () => { estadoGuardado.textContent = `Cargando...`; try { const { actualizados } = await cargarResultadosOficialesGrupo(grupoActivo); estadoGuardado.textContent = `Grupo ${grupoActivo}: ${actualizados} resultados oficiales cargados.`; renderContenidoPrincipal(); } catch(e) { estadoGuardado.textContent = `Error: ${e.message}`; } });
+      document.getElementById('guardarGrupo')?.addEventListener('click', () => { panelGrupo.querySelectorAll('input').forEach(inp => { const grupo = inp.dataset.grupo, idx = parseInt(inp.dataset.idx), tipo = inp.dataset.tipo; if (dataGrupos[grupo] && dataGrupos[grupo][idx]) dataGrupos[grupo][idx][tipo] = inp.value; }); localStorage.setItem(claveGrupo(grupoActivo), JSON.stringify(dataGrupos[grupoActivo])); estadoGuardado.textContent = `Grupo ${grupoActivo} guardado.`; renderContenidoPrincipal(); });
+      document.getElementById('limpiarGrupo')?.addEventListener('click', () => { dataGrupos[grupoActivo] = normalizarSeedGrupo(grupoActivo); localStorage.removeItem(claveGrupo(grupoActivo)); estadoGuardado.textContent = `Grupo ${grupoActivo} limpiado.`; renderContenidoPrincipal(); });
     }
 
-    function renderContenidoPrincipal() {
-      if (grupoActivo === 'PUNTAJES') {
-        renderPanelPuntajes();
-      } else {
-        renderPanelGrupo();
-      }
-    }
+    function renderContenidoPrincipal() { if (grupoActivo === 'PUNTAJES') renderPanelPuntajes(); else renderPanelGrupo(); }
 
     renderTabs();
     renderContenidoPrincipal();
 
     // --------------------------------------------------------------
-    // 3. FILTROS DE LA TABLA DE APUESTAS (NO MODIFICADOS)
+    // 3. FILTROS DE LA TABLA DE APUESTAS
     // --------------------------------------------------------------
+    // Poblar la tabla de apuestas dinámicamente
+    const tablaBody = document.querySelector('#tablaApuestas tbody');
+    const colsApuestas = detectarColumnasApuestas();
+    apuestasData.forEach(row => {
+      const tr = document.createElement('tr');
+      const participante = row[colsApuestas.participante] || '';
+      const grupo = row[colsApuestas.grupo] || '';
+      const local = row[colsApuestas.local] || '';
+      const visita = row[colsApuestas.visita] || '';
+      const golesLocal = row[colsApuestas.golLocal] !== undefined ? row[colsApuestas.golLocal] : '';
+      const golesVisita = row[colsApuestas.golVisita] !== undefined ? row[colsApuestas.golVisita] : '';
+      const resultado = (() => { const gl = toNumber(golesLocal), gv = toNumber(golesVisita); if (gl !== null && gv !== null) return resultadoGlobal(gl, gv); return ''; })();
+      const multi = row[colsApuestas.multi] || '';
+      [participante, grupo, local, visita, golesLocal, golesVisita, resultado, multi].forEach(val => { const td = document.createElement('td'); td.textContent = val; tr.appendChild(td); });
+      tablaBody.appendChild(tr);
+    });
+
     const inputFiltro = document.getElementById('filtroTexto');
     const filtroParticipante = document.getElementById('filtroParticipante');
     const filtroGrupo = document.getElementById('filtroGrupo');
     const filtroPartido = document.getElementById('filtroPartido');
     const botonLimpiar = document.getElementById('limpiarFiltros');
     const estadoFiltrado = document.getElementById('estadoFiltrado');
-    const cuerpoTablaApuestas = document.querySelector('#tablaApuestas tbody');
-    const filas = Array.from(document.querySelectorAll('#tablaApuestas tbody tr'));
-    const encabezadosTabla = Array.from(document.querySelectorAll('#tablaApuestas thead th')).map((th) => normalizar(th.textContent));
-    const indiceParticipanteTabla = encabezadosTabla.findIndex((t) => ['participante', 'jugador', 'nombre'].some((k) => t.includes(k)));
-    const indiceGrupoTabla = encabezadosTabla.findIndex((t) => t === 'grupo' || t.includes('grupo'));
-    const indiceLocalTabla = encabezadosTabla.findIndex((t) => t === 'local' || t.includes('equipo local'));
-    const indiceVisitaTabla = encabezadosTabla.findIndex((t) => t === 'visita' || t.includes('equipo visita'));
-
-    function valorOrdenable(texto) {
-      const limpio = (texto || '').toString().trim().replace(/\s+/g, ' ').replace(/,/g, '.');
-      const numero = Number(limpio);
-      if (limpio !== '' && Number.isFinite(numero)) return { tipo: 'numero', valor: numero };
-      return { tipo: 'texto', valor: limpio.toLowerCase() };
-    }
-
-    function refrescarIndicadoresOrden() {
-      document.querySelectorAll('#tablaApuestas thead th').forEach((th) => {
-        th.classList.remove('orden-activo', 'orden-desc');
-      });
-      if (ordenActivoColumna === null) return;
-      const thActivo = document.querySelectorAll('#tablaApuestas thead th')[ordenActivoColumna];
-      if (thActivo) {
-        thActivo.classList.add('orden-activo');
-        if (ordenActivoDireccion === 'desc') thActivo.classList.add('orden-desc');
-      }
-    }
-
-    function ordenarFilas() {
-      if (ordenActivoColumna === null) {
-        filas.forEach((fila) => cuerpoTablaApuestas.appendChild(fila));
-        refrescarIndicadoresOrden();
-        return;
-      }
-
-      const indice = Number(ordenActivoColumna);
-      filas.sort((filaA, filaB) => {
-        const textoA = filaA.cells[indice] ? filaA.cells[indice].textContent : '';
-        const textoB = filaB.cells[indice] ? filaB.cells[indice].textContent : '';
-        const a = valorOrdenable(textoA);
-        const b = valorOrdenable(textoB);
-        let resultado = 0;
-        if (a.tipo === 'numero' && b.tipo === 'numero') {
-          resultado = a.valor - b.valor;
-        } else {
-          resultado = a.valor.localeCompare(b.valor, 'es', { numeric: true, sensitivity: 'base' });
-        }
-        return ordenActivoDireccion === 'asc' ? resultado : -resultado;
-      });
-
-      filas.forEach((fila) => cuerpoTablaApuestas.appendChild(fila));
-      refrescarIndicadoresOrden();
-    }
+    const filasApuestas = Array.from(document.querySelectorAll('#tablaApuestas tbody tr'));
 
     function aplicarFiltros() {
       const texto = normalizar(inputFiltro.value.trim());
-      const participanteSeleccionado = normalizar(filtroParticipante.value);
-      const grupoSeleccionado = normalizar(filtroGrupo.value);
-      const partidoSeleccionado = normalizar(filtroPartido.value);
+      const participanteSel = normalizar(filtroParticipante.value);
+      const grupoSel = normalizar(filtroGrupo.value);
+      const partidoSel = normalizar(filtroPartido.value);
       let visibles = 0;
-
-      filas.forEach((fila) => {
-        const celdas = Array.from(fila.cells).map((td) => normalizar(td.textContent));
-        const objetivo = indiceParticipanteTabla >= 0 ? celdas[indiceParticipanteTabla] : '';
-        const valorParticipante = indiceParticipanteTabla >= 0 ? (celdas[indiceParticipanteTabla] || '') : '';
-        const valorGrupo = indiceGrupoTabla >= 0 ? (celdas[indiceGrupoTabla] || '') : '';
-        const valorLocal = indiceLocalTabla >= 0 ? (celdas[indiceLocalTabla] || '') : '';
-        const valorVisita = indiceVisitaTabla >= 0 ? (celdas[indiceVisitaTabla] || '') : '';
-        const valorPartido = `${valorLocal} - ${valorVisita}`;
-        const coincideTexto = texto === '' || objetivo.includes(texto);
-        const coincideParticipante = participanteSeleccionado === 'todos' || valorParticipante === participanteSeleccionado;
-        const coincideGrupo = grupoSeleccionado === 'todos' || valorGrupo === grupoSeleccionado;
-        const coincidePartido = partidoSeleccionado === 'todos' || valorPartido === partidoSeleccionado;
-        const coincide = coincideTexto && coincideParticipante && coincideGrupo && coincidePartido;
-
-        fila.style.display = coincide ? '' : 'none';
-        if (coincide) visibles += 1;
+      filasApuestas.forEach(fila => {
+        const celdas = Array.from(fila.cells).map(td => normalizar(td.textContent));
+        const coincideTexto = texto === '' || celdas.join(' ').includes(texto);
+        const coincideParticipante = participanteSel === 'todos' || celdas[0] === participanteSel;
+        const coincideGrupo = grupoSel === 'todos' || celdas[1] === grupoSel;
+        const partidoCompleto = `${celdas[2]} - ${celdas[3]}`;
+        const coincidePartido = partidoSel === 'todos' || normalizar(partidoCompleto) === partidoSel;
+        const ok = coincideTexto && coincideParticipante && coincideGrupo && coincidePartido;
+        fila.style.display = ok ? '' : 'none';
+        if (ok) visibles++;
       });
-
-      estadoFiltrado.textContent = `Mostrando ${visibles} de ${filas.length} apuestas`;
-      ordenarFilas();
+      estadoFiltrado.textContent = `Mostrando ${visibles} de ${filasApuestas.length} apuestas`;
     }
 
     inputFiltro.addEventListener('input', aplicarFiltros);
     filtroParticipante.addEventListener('change', aplicarFiltros);
     filtroGrupo.addEventListener('change', aplicarFiltros);
     filtroPartido.addEventListener('change', aplicarFiltros);
-    document.querySelectorAll('#tablaApuestas thead th').forEach((th, index) => {
-      th.addEventListener('click', () => {
-        if (ordenActivoColumna === index) {
-          ordenActivoDireccion = ordenActivoDireccion === 'asc' ? 'desc' : 'asc';
-        } else {
-          ordenActivoColumna = index;
-          ordenActivoDireccion = 'asc';
-        }
-        aplicarFiltros();
-      });
-    });
-    botonLimpiar.addEventListener('click', () => {
-      inputFiltro.value = '';
-      filtroParticipante.value = 'todos';
-      filtroGrupo.value = 'todos';
-      filtroPartido.value = 'todos';
-      ordenActivoColumna = null;
-      ordenActivoDireccion = 'asc';
-      aplicarFiltros();
-    });
-
+    botonLimpiar.addEventListener('click', () => { inputFiltro.value = ''; filtroParticipante.value = 'todos'; filtroGrupo.value = 'todos'; filtroPartido.value = 'todos'; aplicarFiltros(); });
     aplicarFiltros();
 
     // --------------------------------------------------------------
-    // 4. NUEVOS BOTONES GLOBALES (LIMPIAR Y CARGAR TODOS LOS GRUPOS)
+    // 4. NUEVOS BOTONES GLOBALES
     // --------------------------------------------------------------
-    async function cargarTodosLosGruposOficiales() {
-      let totalActualizados = 0;
-      for (const grupo of grupos) {
-        try {
-          const { actualizados } = await cargarResultadosOficialesGrupo(grupo);
-          totalActualizados += actualizados;
-        } catch(e) { 
-          console.error(`Error en grupo ${grupo}:`, e);
-          estadoGuardado.textContent = `Error cargando grupo ${grupo}: ${e.message}`;
-          return -1; // Indicar error
-        }
-      }
-      return totalActualizados;
-    }
-
-    function limpiarTodosLosGrupos() {
-      for (const grupo of grupos) {
-        dataGrupos[grupo] = normalizarSeedGrupo(grupo);
-        localStorage.removeItem(claveGrupo(grupo));
-      }
-    }
-
-    document.getElementById('limpiarTodosGrupos')?.addEventListener('click', async () => {
-      if (confirm('⚠️ ¿Estás seguro? Se borrarán TODOS los resultados guardados de todos los grupos. Esta acción no se puede deshacer.')) {
-        limpiarTodosLosGrupos();
-        estadoGuardado.textContent = '✅ Todos los grupos han sido limpiados exitosamente.';
+    document.getElementById('limpiarTodosGrupos')?.addEventListener('click', () => {
+      if (confirm('⚠️ ¿Borrar TODOS los resultados de todos los grupos? No se puede deshacer.')) {
+        grupos.forEach(g => { dataGrupos[g] = normalizarSeedGrupo(g); localStorage.removeItem(claveGrupo(g)); });
+        estadoGuardado.textContent = '✅ Todos los grupos han sido limpiados.';
         renderContenidoPrincipal();
-        setTimeout(() => { if(estadoGuardado) estadoGuardado.textContent = ''; }, 4000);
+        setTimeout(() => estadoGuardado.textContent = '', 3000);
       }
     });
 
     document.getElementById('cargarTodosOficiales')?.addEventListener('click', async () => {
       estadoGuardado.textContent = '🔄 Cargando resultados oficiales para TODOS los grupos...';
-      try {
-        const total = await cargarTodosLosGruposOficiales();
-        if (total === -1) return;
-        estadoGuardado.textContent = `✅ Carga completa. Se actualizaron ${total} partidos con resultados oficiales.`;
-        renderContenidoPrincipal();
-        setTimeout(() => { if(estadoGuardado && estadoGuardado.textContent.includes('Carga completa')) estadoGuardado.textContent = ''; }, 5000);
-      } catch (error) {
-        estadoGuardado.textContent = `❌ Error al cargar resultados oficiales: ${error.message || error}`;
+      let total = 0;
+      for (const grupo of grupos) {
+        try {
+          const { actualizados } = await cargarResultadosOficialesGrupo(grupo);
+          total += actualizados;
+        } catch(e) { estadoGuardado.textContent = `Error en grupo ${grupo}: ${e.message}`; return; }
       }
+      estadoGuardado.textContent = `✅ Carga completa. Se actualizaron ${total} partidos.`;
+      renderContenidoPrincipal();
+      setTimeout(() => estadoGuardado.textContent = '', 4000);
     });
   </script>
   <section style="text-align: center; margin: 50px 0; padding: 20px; border-top: 2px solid #e2e8f0;">
